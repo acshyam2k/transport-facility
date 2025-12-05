@@ -1,0 +1,118 @@
+<div class="container">
+  <div class="card">
+    <div class="card-header">
+      <h2 class="card-title">Available Rides</h2>
+      <p class="subtitle">
+        Showing rides available within +/- 60 minutes from now.
+      </p>
+    </div>
+
+    <div class="card-body">
+      <!-- Filters -->
+      <div class="filter-grid">
+        <div class="form-group">
+          <label for="vehicleTypeFilter" class="form-label">Vehicle Type</label>
+          <select
+            id="vehicleTypeFilter"
+            (change)="onFilterChange($event)"
+            [value]="filterVehicleType()"
+            class="form-input"
+          >
+            <option value="All">All</option>
+            <option value="Car">Car</option>
+            <option value="Bike">Bike</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Ride List -->
+      <div class="rides-list">
+        @for (ride of filteredRides(); track ride.id) {
+        <div class="ride-card">
+          <div class="ride-header">
+            <div class="ride-route">
+              {{ ride.pickupPoint }} to {{ ride.destination }}
+            </div>
+            <span class="ride-time">{{ ride.time }}</span>
+          </div>
+
+          <div class="ride-details">
+            <div class="detail-item">
+              <span>Provider: {{ ride.providerEmployeeId }}</span>
+            </div>
+            <div class="detail-item">
+              <span
+                >Vehicle: {{ ride.vehicleNo }} ({{ ride.vehicleType }})</span
+              >
+            </div>
+            <div class="detail-item">
+              <span>{{ ride.vacantSeats }} Seats Left</span>
+            </div>
+          </div>
+
+          <button (click)="openBookingModal(ride)" class="book-btn">
+            Book
+          </button>
+        </div>
+        } @empty {
+        <div class="empty-state">
+          <p>No rides available at the moment.</p>
+          <p style="font-size: 0.875rem; margin-top: 0.5rem">
+            Try checking back later or offer a ride yourself!
+          </p>
+        </div>
+        }
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Booking Modal -->
+@if (isBookingModalOpen()) {
+<div class="modal-overlay">
+  <div class="modal-content">
+    <button (click)="closeBookingModal()" class="modal-close-btn">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M6 18L18 6M6 6l12 12"
+        />
+      </svg>
+    </button>
+    <h3 class="modal-title">Confirm Booking</h3>
+    @if (selectedRideForBooking(); as ride) {
+    <p class="modal-description">
+      You are booking a seat from <strong>{{ ride.pickupPoint }}</strong> to
+      <strong>{{ ride.destination }}</strong
+      >.
+    </p>
+    }
+    <div class="form-group">
+      <label for="bookingEmployeeId" class="form-label"
+        >Enter Your Employee ID</label
+      >
+      <input
+        id="bookingEmployeeId"
+        type="text"
+        [value]="bookingEmployeeId()"
+        (input)="onEmployeeIdInput($event)"
+        placeholder="e.g. EMP456"
+        class="form-input"
+      />
+    </div>
+    <div class="modal-actions">
+      <button (click)="closeBookingModal()" class="btn-cancel">Cancel</button>
+      <button (click)="confirmBooking()" class="btn-confirm">Confirm</button>
+    </div>
+  </div>
+</div>
+}
