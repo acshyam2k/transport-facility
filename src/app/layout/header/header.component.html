@@ -1,0 +1,27 @@
+<header class="header">
+  <h1 class="title">Corporate RideShare</h1>
+  <p class="subtitle">
+    Your daily commute, simplified. Offer or find a ride for today.
+  </p>
+</header>
+
+<div class="view-switcher-container">
+  <div class="view-switcher">
+    <a
+      routerLink="/find"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+      class="switcher-btn"
+    >
+      Find a Ride
+    </a>
+    <a
+      routerLink="/offer"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+      class="switcher-btn"
+    >
+      Offer a Ride
+    </a>
+  </div>
+</div>
