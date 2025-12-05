@@ -1,0 +1,132 @@
+<div class="container">
+  <div class="card">
+    <div class="card-header">
+      <h2 class="card-title">Offer a Ride</h2>
+    </div>
+
+    <div class="card-body">
+      <form
+        [formGroup]="addRideForm"
+        (ngSubmit)="onAddRideSubmit()"
+        class="form-grid"
+      >
+        <div class="form-group">
+          <label for="providerEmployeeId" class="form-label"
+            >Your Employee ID</label
+          >
+          <input
+            id="providerEmployeeId"
+            type="text"
+            formControlName="providerEmployeeId"
+            placeholder="e.g. EMP123"
+            class="form-input"
+          />
+          @if (formControls['providerEmployeeId'].touched &&
+          formControls['providerEmployeeId'].errors?.['required']) {
+          <p class="error-message">Employee ID is required.</p>
+          } @if (formControls['providerEmployeeId'].touched &&
+          formControls['providerEmployeeId'].errors?.['pattern']) {
+          <p class="error-message">Invalid format. e.g. EMP123</p>
+          }
+        </div>
+
+        <div class="form-group">
+          <label for="vehicleNo" class="form-label">Vehicle No</label>
+          <input
+            id="vehicleNo"
+            type="text"
+            formControlName="vehicleNo"
+            placeholder="e.g. AB-12-CD-3456"
+            class="form-input"
+          />
+          @if (formControls['vehicleNo'].touched &&
+          formControls['vehicleNo'].errors) {
+          <p class="error-message">
+            Valid vehicle number is required (e.g. TS-07-AB-1234).
+          </p>
+          }
+        </div>
+
+        <div class="form-group">
+          <label for="vehicleType" class="form-label">Vehicle Type</label>
+          <select
+            id="vehicleType"
+            formControlName="vehicleType"
+            class="form-input"
+          >
+            <option value="Car">Car</option>
+            <option value="Bike">Bike</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="vacantSeats" class="form-label">Vacant Seats</label>
+          <input
+            id="vacantSeats"
+            type="number"
+            formControlName="vacantSeats"
+            min="1"
+            class="form-input"
+          />
+          @if (formControls['vacantSeats'].touched &&
+          formControls['vacantSeats'].errors) {
+          <p class="error-message">
+            Please provide a valid number of seats (1-10).
+          </p>
+          }
+        </div>
+
+        <div class="form-group">
+          <label for="time" class="form-label">Time</label>
+          <input
+            id="time"
+            type="time"
+            formControlName="time"
+            class="form-input"
+          />
+          @if (formControls['time'].touched && formControls['time'].errors) {
+          <p class="error-message">Time is required.</p>
+          }
+        </div>
+
+        <div class="form-group">
+          <label for="pickupPoint" class="form-label">Pick-up Point</label>
+          <input
+            id="pickupPoint"
+            type="text"
+            formControlName="pickupPoint"
+            class="form-input"
+          />
+          @if (formControls['pickupPoint'].touched &&
+          formControls['pickupPoint'].errors) {
+          <p class="error-message">Pick-up point is required.</p>
+          }
+        </div>
+
+        <div class="form-group full-width">
+          <label for="destination" class="form-label">Destination</label>
+          <input
+            id="destination"
+            type="text"
+            formControlName="destination"
+            class="form-input"
+          />
+          @if (formControls['destination'].touched &&
+          formControls['destination'].errors) {
+          <p class="error-message">Destination is required.</p>
+          }
+        </div>
+
+        <div class="form-actions full-width">
+          <button
+            type="submit"
+            [disabled]="addRideForm.invalid"
+            class="btn-submit"
+          >
+            Add Ride
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
