@@ -1,0 +1,17 @@
+<main class="app-container">
+  <div class="main-content">
+    <div class="app-shell">
+      <app-header></app-header>
+      <div class="content-area">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notification Toast -->
+  @if (notification(); as notification) {
+    <div class="notification-toast" [class.success]="notification.type === 'success'" [class.error]="notification.type === 'error'">
+      {{ notification.message }}
+    </div>
+  }
+</main>
